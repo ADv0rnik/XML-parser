@@ -1,2 +1,2 @@
 # XML-parser
-Create an XML parser and load data from into the collection ArrayList&lt;>​. 
+Create an XML parser and load data into the collection ArrayList<>. 
