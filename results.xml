@@ -16,6 +16,6 @@
         <tests>
                 <test name="oop" date="2013-03-27" mark="7.0"/>
                 <test name="collections" date="2013-03-28" mark="6.4"/>
-</tests>
-</student>
-        </results>
+        </tests>
+    </student>
+</results>
