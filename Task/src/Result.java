@@ -45,6 +45,10 @@ public class Result {
         this.mark = mark;
     }
 
+    public Result() {
+
+    }
+
     @Override
     public String toString() {
         return String.format("%s;%s;%tD;%d",this.login, this.test, this.date, this.mark);

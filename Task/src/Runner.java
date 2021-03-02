@@ -7,7 +7,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 public class Runner {
-    private static final ArrayList<Result> results = new ArrayList<>();
+
     static final String XML = "results.xml";
     static final String XSD = "results.xsd";
     public static void main(String[] args) throws ParserConfigurationException, SAXException {
