@@ -18,70 +18,76 @@ public class ResultHandler extends DefaultHandler {
     private List<Result> resultsList = null;
     private Result result = null;
     private StringBuilder data = null;
-    /*String login, test;
-    Date date;
-    int mark*/;
+    boolean isStudent = false;
+    boolean isLogin = false;
+    boolean isTests = false;
+    boolean isTest = false;
 
     public List<Result> getResultsList() {
         return resultsList;
     }
 
-    boolean isStudent = false;
-    boolean isLogin = false;
-    boolean isTests = false;
-
-
     @Override
-    public void startDocument(){
+    public void startDocument() {
         System.out.println("Start parsing...");
     }
 
     @Override
-    public void endDocument(){
-        System.out.println(resultsList.toString());
+    public void endDocument() {
+
         System.out.println("Parsing complete");
     }
 
     @Override
     public void startElement(String uri, String localName, String qName, Attributes attributes) {
         currentTag = qName;
-        if (currentTag.equals(STUDENT_TAG)){
-            isStudent = true;
-        }
-       /* if(currentTag.equals(TEST_TAG)){
-                test = attributes.getValue("name");
+        switch (currentTag) {
+            case STUDENT_TAG: {
+                isStudent = true;
+                result = new Result();
+                if (resultsList == null) {
+                    resultsList = new ArrayList<>();
+                }
+            }
+            break;
+            case LOGIN_TAG: {
+                isLogin = true;
+                data = new StringBuilder();
+            }
+            break;
+            case TEST_TAG: {
+                result.setLogin(data.toString());
+                String name = attributes.getValue("name");
+                result.setTest(name);
                 String tmp = attributes.getValue("date");
                 DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
                 try {
-                    date = dateFormat.parse(tmp);
-                   // System.out.println(new SimpleDateFormat("dd.MM.yyyy").format(date));
+                    Date date = dateFormat.parse(tmp);
+                    result.setDate(date); //TODO: check date format
                 } catch (ParseException e) {
-                    //System.out.println("Parse error: " + e.toString());
+                    System.out.println("Parse error: " + e.toString());
                 }
-                mark = (int)Math.round(Double.parseDouble(attributes.getValue("mark")));
-               // System.out.println(mark);
-        }System.out.println("Start element: " + qName);*/
+                int mark = (int) Math.round(Double.parseDouble(attributes.getValue("mark")));
+                result.setMark(mark);
+                resultsList.add(result);
+            }
+        }
     }
-
 
     @Override
     public void endElement(String uri, String localName, String qName) {
-        if (qName.equals(STUDENT_TAG)) {
-           // result = new Result(login,test,date, mark);
-            resultsList.add(result);
+        if (isLogin && currentTag.equals(LOGIN_TAG)) {
+            isLogin = false;
+        } else if (isStudent && qName.equals(STUDENT_TAG)){
+            isStudent = false;
         }
-        //System.out.println("End element: " + qName);
-
         currentTag = null;
     }
 
     @Override
     public void characters(char[] ch, int start, int length) {
-       /* String s = new String(ch, start, length);
-        if (LOGIN_TAG.equals(currentTag)) {
-            login = s;
+        if (isLogin) {
+            data.append(new String(ch, start, length));
         }
-            System.out.println(login);
-*/
     }
 }
