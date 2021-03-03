@@ -34,7 +34,9 @@ public class ResultHandler extends DefaultHandler {
 
     @Override
     public void endDocument() {
-
+        for (Result res: resultsList){
+            System.out.println(res);
+        }
         System.out.println("Parsing complete");
     }
 
@@ -44,10 +46,6 @@ public class ResultHandler extends DefaultHandler {
         switch (currentTag) {
             case STUDENT_TAG: {
                 isStudent = true;
-                result = new Result();
-                if (resultsList == null) {
-                    resultsList = new ArrayList<>();
-                }
             }
             break;
             case LOGIN_TAG: {
@@ -56,6 +54,10 @@ public class ResultHandler extends DefaultHandler {
             }
             break;
             case TEST_TAG: {
+                result = new Result();
+                if (resultsList == null) {
+                    resultsList = new ArrayList<>();
+                }
                 result.setLogin(data.toString());
                 String name = attributes.getValue("name");
                 result.setTest(name);
@@ -71,12 +73,13 @@ public class ResultHandler extends DefaultHandler {
                 result.setMark(mark);
                 resultsList.add(result);
             }
+
         }
     }
 
     @Override
     public void endElement(String uri, String localName, String qName) {
-        if (isLogin && currentTag.equals(LOGIN_TAG)) {
+        if (qName.equals(LOGIN_TAG)) {
             isLogin = false;
         } else if (isStudent && qName.equals(STUDENT_TAG)){
             isStudent = false;

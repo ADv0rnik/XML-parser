@@ -4,7 +4,7 @@ public class Result {
     private String login;
     private String test;
     private Date date;
-    private int mark;// double values in xml!!!
+    private int mark;
 
     public String getLogin() {
         return login;

@@ -5,6 +5,7 @@ import javax.xml.parsers.SAXParserFactory;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 
 public class Runner {
 
@@ -18,6 +19,10 @@ public class Runner {
             SAXParser parser = factory.newSAXParser();
             ResultHandler resultHandler = new ResultHandler();
             parser.parse(new File(XML), resultHandler);
+            /*List<Result> resultList = resultHandler.getResultsList();
+            for (Result res: resultList){
+                System.out.println(res);
+            }*/
         } catch (IOException e) {
             System.out.println("Parser open error: " + e.toString());
         }
