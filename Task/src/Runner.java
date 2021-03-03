@@ -21,6 +21,4 @@ public class Runner {
             System.out.println("Parser open error: " + e.toString());
         }
     }
-
-
 }
