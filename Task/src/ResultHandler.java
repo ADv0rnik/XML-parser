@@ -1,9 +1,11 @@
 import org.xml.sax.Attributes;
 import org.xml.sax.helpers.DefaultHandler;
 
+import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public class ResultHandler extends DefaultHandler {
@@ -13,8 +15,21 @@ public class ResultHandler extends DefaultHandler {
     static final String TEST_TAG = "test";
 
     private String currentTag = null;
-    private Result result;
-    List<Result> resultsList = new ArrayList<>();
+    private List<Result> resultsList = null;
+    private Result result = null;
+    private StringBuilder data = null;
+    /*String login, test;
+    Date date;
+    int mark*/;
+
+    public List<Result> getResultsList() {
+        return resultsList;
+    }
+
+    boolean isStudent = false;
+    boolean isLogin = false;
+    boolean isTests = false;
+
 
     @Override
     public void startDocument(){
@@ -23,50 +38,50 @@ public class ResultHandler extends DefaultHandler {
 
     @Override
     public void endDocument(){
+        System.out.println(resultsList.toString());
         System.out.println("Parsing complete");
     }
 
     @Override
     public void startElement(String uri, String localName, String qName, Attributes attributes) {
         currentTag = qName;
-        switch (currentTag){
-            case LOGIN_TAG: {
-                result = new Result();
-            }
-            break;
-            case TEST_TAG: {
-                result.setTest(attributes.getValue("name"));
+        if (currentTag.equals(STUDENT_TAG)){
+            isStudent = true;
+        }
+       /* if(currentTag.equals(TEST_TAG)){
+                test = attributes.getValue("name");
                 String tmp = attributes.getValue("date");
-                System.out.println(tmp);
+                DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
                 try {
-                    result.setDate(new SimpleDateFormat("yyyy-mm-dd").parse(tmp));
+                    date = dateFormat.parse(tmp);
+                   // System.out.println(new SimpleDateFormat("dd.MM.yyyy").format(date));
                 } catch (ParseException e) {
-                    e.printStackTrace();
+                    //System.out.println("Parse error: " + e.toString());
                 }
-
-
-            }
-            break;
-
-
-            }//System.out.println("Start element: " + qName);
+                mark = (int)Math.round(Double.parseDouble(attributes.getValue("mark")));
+               // System.out.println(mark);
+        }System.out.println("Start element: " + qName);*/
     }
+
 
     @Override
     public void endElement(String uri, String localName, String qName) {
-        /*if (currentTag.equals(STUDENT_TAG)) {
+        if (qName.equals(STUDENT_TAG)) {
+           // result = new Result(login,test,date, mark);
+            resultsList.add(result);
+        }
+        //System.out.println("End element: " + qName);
 
-        }*/// System.out.println("End element: " + qName);
         currentTag = null;
     }
 
     @Override
     public void characters(char[] ch, int start, int length) {
-        String s = new String(ch, start, length);
+       /* String s = new String(ch, start, length);
         if (LOGIN_TAG.equals(currentTag)) {
-            result.setLogin(s);
+            login = s;
         }
-           // System.out.println(s);
-
+            System.out.println(login);
+*/
     }
 }
