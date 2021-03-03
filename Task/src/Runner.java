@@ -6,7 +6,6 @@ import java.io.File;
 import java.io.IOException;
 
 public class Runner {
-
     static final String XML = "results.xml";
     static final String XSD = "results.xsd";
     public static void main(String[] args) throws ParserConfigurationException, SAXException {
