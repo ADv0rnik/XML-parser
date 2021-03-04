@@ -1,3 +1,7 @@
+package by.basnet.irb;
+
+import helper.FileValidator;
+import helper.ResultHandler;
 import org.xml.sax.SAXException;
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.parsers.SAXParser;
@@ -6,8 +10,8 @@ import java.io.File;
 import java.io.IOException;
 
 public class Runner {
-    static final String XML = "results.xml";
-    static final String XSD = "results.xsd";
+    static final String XML = "Task/src/resource/results.xml";
+    static final String XSD = "Task/src/resource/results.xsd";
     public static void main(String[] args) throws ParserConfigurationException, SAXException {
         System.out.println("Validation start...");
         FileValidator.validateXMLSchema(XSD,XML);

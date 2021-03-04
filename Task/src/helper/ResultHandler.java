@@ -1,3 +1,6 @@
+package helper;
+
+import model.Result;
 import org.xml.sax.Attributes;
 import org.xml.sax.helpers.DefaultHandler;
 
